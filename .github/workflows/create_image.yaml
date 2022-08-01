@@ -1,0 +1,35 @@
+name: Image build and push to ecr
+
+on:
+  push
+
+
+jobs:
+
+  build:
+    name: Build Image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Actions Checkout
+      uses: actions/checkout@v3
+      
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
+      
+    - name: Build the Docker image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: k8s_ecr_repo
+        IMAGE_TAG: finalimage
+      run: |
+        cd application
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+
