@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: project-configmap
+data:
+    BG_IMG: https://k8s-demo-sohel-images.s3.amazonaws.com/elliott-engelmann-DjlKxYFJlTc-unsplash.jpg
+    header: Sohel Shaikh
