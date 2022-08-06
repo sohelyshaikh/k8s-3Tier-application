@@ -15,12 +15,27 @@ app.config["MYSQL_DATABASE_HOST"] = os.getenv("MYSQL_SERVICE_HOST")
 app.config["MYSQL_DATABASE_PORT"] = int(os.getenv("MYSQL_SERVICE_PORT"))
 mysql.init_app(app)
 
+bgi = "https://k8s-demo-sohel-images.s3.amazonaws.com/alfred-kenneally-qp_q-CSC0AI-unsplash.jpg"
 
 @app.route("/")
 def index():
     """Function to test the functionality of the API"""
-    return render_template(welcome.html)
+    return render_template(welcome.html, bgi = bgi)
 
+
+@app.route("/users", methods=["GET"])
+def users():
+    """Function to retrieve all users from the MySQL database"""
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users")
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return render_template('showuser.html',content=rows, bgi=BackGround_Image)
+    except Exception as exception:
+        return jsonify(str(exception))
 
 @app.route("/create", methods=["POST"])
 def add_user():
@@ -47,24 +62,6 @@ def add_user():
             return jsonify(str(exception))
     else:
         return jsonify("Please provide name, email and pwd")
-
-
-@app.route("/users", methods=["GET"])
-def users():
-    """Function to retrieve all users from the MySQL database"""
-    try:
-        conn = mysql.connect()
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users")
-        rows = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        resp = jsonify(rows)
-        resp.status_code = 200
-        return resp
-    except Exception as exception:
-        return jsonify(str(exception))
-
 
 @app.route("/user/<int:user_id>", methods=["GET"])
 def user(user_id):
@@ -130,4 +127,4 @@ def delete_user(user_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=81)

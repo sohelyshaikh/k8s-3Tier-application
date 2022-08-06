@@ -1,13 +1,19 @@
-FROM python:alpine
+FROM python:3.6-slim
 
-ADD ./requirements.txt /opt/webapp-mysql/
+RUN apt-get clean \
+    && apt-get -y update
 
-WORKDIR /opt/webapp-mysql
+RUN apt-get -y install \
+    nginx \
+    python3-dev \
+    build-essential
 
-RUN pip install -r requirements.txt
+WORKDIR /app
 
-ADD . /opt/webapp-mysql
+COPY requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt --src /usr/local/src
+
+COPY . .
 
 EXPOSE 81
-
-CMD python /opt/webapp-mysql/app.py
+CMD [ "python", "flaskapi.py" ]

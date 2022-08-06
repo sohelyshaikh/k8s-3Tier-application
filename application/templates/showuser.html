@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+ <title>Users in database4</title>
+</head>
+<body>
+    <style>
+        table.center {
+        margin-left: auto; 
+        margin-right: auto;
+        }
+    
+        body {
+          background-image: url({{ bgi }});
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+
+        td {
+        width: 100px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 5px;
+      }
+      
+      h1{
+          text-align: center;
+          color: rgb(225, 238, 238);
+      }
+    </style>
+        <h1>All users from Database: </h1>
+        <table class="center" style="text-align: center; color: white;" >
+            <thead>
+                <tr>
+                    <th>Pid</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+
+            <tbody >
+                {% for user in content %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>{{ user[3] }}</td>
+                </tr>
+                {% endfor %}    
+            </tbody>
+            
+        </table>
+    <!--</div>    -->
+</body>
