@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myflask-app
+  labels:
+    app: myflask-app
+spec:
+  containers:
+  - name: myflask-app
+    image: 811653861373.dkr.ecr.us-east-1.amazonaws.com/k8s_ecr_repo:finalimage
+    ports:
+      - containerPort: 5000
+    env:
+      - name: db_name
+        value: sohelshaikh
+      - name: db_root_password
+        value: admin
+      - name: MYSQL_SERVICE_HOST
+        value: mysql-service
+      - name: MYSQL_SERVICE_PORT
+        value: "3306"
+
