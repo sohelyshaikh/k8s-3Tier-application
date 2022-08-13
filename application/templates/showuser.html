@@ -10,7 +10,7 @@
     }
     
         body {
-          background-image: url({{ bgi }});
+            background-image: url( {{ url_for('static', filename='image.jpg') }} );
           background-repeat: no-repeat;
           background-attachment: fixed;  
           background-size: cover;

@@ -2,7 +2,8 @@
 <head>
     <style>
         body {
-          background-image: url({{ bgi }});
+          background-image: url({{ url_for( 'static', filename='image.jpg') }});
+          
           background-repeat: no-repeat;
           background-attachment: fixed;  
           background-size: cover;
@@ -14,7 +15,18 @@
     <div style="color: floralwhite;font-family: courier;text-align:center;font-size:30px;" align="centre">
         
     <h1>Hello and Welcome to Kubernetes MiniProject</h1><br>
-    <h2 style="color: greenyellow;">This project demonstrate connection of flask and mysql</h2>
+    <h2 style="color: greenyellow;">This project demonstrate the concepts learned in course CLO835</h2>
+     <dl>
+      <dt>Docker</dt>
+      <dd>- Build Docker images</dd>
+      <dd>- Run and publish images into AWS ECR</dd>
+      <dt>Kubernetes</dt>
+      <dd>- Pod, Replicaset, Deployment</dd>
+      <dd>- Secrets, ConfigMap</dd>
+      <dd>- Persistent Volumes and Claims</dd>
+      <dd>- Services, RBAC, ISRA for ServiceAccounts </dd>
+    </dl> 
 
 
     </div>
+</body>
