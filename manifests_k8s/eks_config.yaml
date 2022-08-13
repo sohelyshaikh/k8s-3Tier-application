@@ -9,13 +9,17 @@ metadata:
 
 availabilityZones: ["us-east-1a" ,"us-east-1b" ,"us-east-1c"]
 
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["authenticator"]
+
 managedNodeGroups:
 - name: nodegroup
   desiredCapacity: 2
   instanceType: t3.small
   ssh:
     enableSsm: true
-    
 
 
-
+# eksctl utils associate-iam-oidc-provider --cluster clo85-sohel --approve
+# eksctl create iamserviceaccount --name s3access --namespace default --cluster clo835-sohel --attach-policy-arn arn:aws:iam::811653861373:policy/eksAccessImage --approve --override-existing-serviceaccounts
