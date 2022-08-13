@@ -16,18 +16,19 @@ app.config["MYSQL_DATABASE_PASSWORD"] = os.getenv("db_root_password")
 app.config["MYSQL_DATABASE_DB"] = os.getenv("db_name") 
 app.config["MYSQL_DATABASE_HOST"] = os.getenv("MYSQL_SERVICE_HOST") 
 app.config["MYSQL_DATABASE_PORT"] = int('3306')
-
-
 mysql.init_app(app)
-
 
 BackGround_Image = os.getenv("BG_IMG") 
 Header = os.getenv("HEADER")
 
+
+
 AWS_REGION = "us-east-1"
 S3_BUCKET_NAME = "k8s-sohel-images"
 s3_resource = boto3.resource("s3", region_name=AWS_REGION)
+
 s3_object = s3_resource.Object(S3_BUCKET_NAME, BackGround_Image)
+
 s3_object.download_file('static/image.jpg')
 
 @app.route("/home")
