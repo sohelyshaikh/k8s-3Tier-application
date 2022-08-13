@@ -6,6 +6,7 @@ on:
 
 env:
   IMAGE_TAG: finalimage
+  ECR_REPOSITORY: k8s_ecr_repo
 
 jobs:
 
@@ -28,7 +29,7 @@ jobs:
     - name: Build the Docker image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: k8s_ecr_repo
+        
         
       run: |
         cd application
