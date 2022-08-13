@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myflask-app
+  labels:
+    app: myflask-app
+spec:
+  serviceAccountName: s3access
+  
+  containers:
+  - name: myflask-app
+    image: 811653861373.dkr.ecr.us-east-1.amazonaws.com/k8s_ecr_repo:finalimage
+    imagePullPolicy: Always
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 81
+    env:
+      - name: db_name
+        value: sohelshaikh
+      - name: MYSQL_SERVICE_HOST
+        value: mysql-service
+      - name: HEADER
+        valueFrom:
+          configMapKeyRef:
+            name: project-configmap
+            key: header
+      - name: BG_IMG
+        valueFrom:
+          configMapKeyRef:
+            name: project-configmap
+            key: BG_IMG
+    envFrom:
+      - secretRef:
+          name: project-secrets
+        
+          
