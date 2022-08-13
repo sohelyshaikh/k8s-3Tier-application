@@ -39,15 +39,15 @@ spec:
   template:
     metadata:
       labels:
-        app:  mysql
+        app: mysql
     spec:
       containers:
       - name:  mysql
-        image:  mysql:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image:  mysql:8.0
+        # resources:
+        #   limits:
+        #     memory: "256M"
+        #     cpu: "900m"
         ports:
         - containerPort: 3306
         env:
@@ -55,7 +55,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: project-secrets
-              key: root_password
+              key: db_root_password
         volumeMounts:
           - name: project-pv
             mountPath: /var/lib/mysql

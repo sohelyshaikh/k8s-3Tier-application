@@ -6,15 +6,10 @@ metadata:
     app: myflask-app
 spec:
   serviceAccountName: s3access
-  
   containers:
   - name: myflask-app
     image: 811653861373.dkr.ecr.us-east-1.amazonaws.com/k8s_ecr_repo:finalimage
     imagePullPolicy: Always
-    resources:
-      limits:
-        memory: "128Mi"
-        cpu: "500m"
     ports:
       - containerPort: 81
     env:
@@ -36,4 +31,3 @@ spec:
       - secretRef:
           name: project-secrets
         
-          
