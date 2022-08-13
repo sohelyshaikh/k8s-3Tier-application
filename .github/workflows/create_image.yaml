@@ -31,7 +31,7 @@ jobs:
         ECR_REPOSITORY: k8s_ecr_repo
         
       run: |
-        cd application/new-app
+        cd application
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
