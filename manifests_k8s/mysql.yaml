@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name:  mysql
-        image:  mysql:8.0
+        image:  mysql:5.7
         # resources:
         #   limits:
         #     memory: "256M"
@@ -59,7 +59,13 @@ spec:
         volumeMounts:
           - name: project-pv
             mountPath: /var/lib/mysql
+            subPath: mysql
+          - name: mysql-initdb
+            mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: project-pv
         persistentVolumeClaim:
           claimName: project-pvc
+      - name: mysql-initdb
+        configMap:
+          name: mysql-initdb-config
