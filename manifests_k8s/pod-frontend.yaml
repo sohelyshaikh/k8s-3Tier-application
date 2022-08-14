@@ -5,9 +5,10 @@ metadata:
   labels:
     app: myflask-app
 spec:
-  serviceAccountName: s3access
+  serviceAccountName: clo835
   containers:
   - name: myflask-app
+    # image: 811653861373.dkr.ecr.us-east-1.amazonaws.com/repo_demo:v41
     image: 811653861373.dkr.ecr.us-east-1.amazonaws.com/k8s_ecr_repo:finalimage
     imagePullPolicy: Always
     ports:
@@ -22,12 +23,23 @@ spec:
           configMapKeyRef:
             name: project-configmap
             key: header
-      - name: BG_IMG
-        valueFrom:
-          configMapKeyRef:
-            name: project-configmap
-            key: BG_IMG
+      # - name: BG_IMG
+      #   valueFrom:
+      #     configMapKeyRef:
+      #       name: project-configmap
+      #       key: BG_IMG
     envFrom:
       - secretRef:
           name: project-secrets
-        
+
+    volumeMounts:
+      - name: configmap-vol
+        mountPath: /clo835/config/
+  volumes:
+    - name: configmap-vol
+      configMap:
+        name: project-configmap
+        items:
+          - key: BG_IMG
+            path: image_url
+      

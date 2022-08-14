@@ -21,5 +21,5 @@ managedNodeGroups:
     enableSsm: true
 
 
-# eksctl utils associate-iam-oidc-provider --cluster clo85-sohel --approve
+# eksctl utils associate-iam-oidc-provider --cluster clo835-sohel --approve
 # eksctl create iamserviceaccount --name s3access --namespace default --cluster clo835-sohel --attach-policy-arn arn:aws:iam::811653861373:policy/eksAccessImage --approve --override-existing-serviceaccounts
