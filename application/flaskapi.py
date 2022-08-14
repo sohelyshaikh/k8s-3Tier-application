@@ -18,10 +18,13 @@ app.config["MYSQL_DATABASE_HOST"] = os.getenv("MYSQL_SERVICE_HOST")
 app.config["MYSQL_DATABASE_PORT"] = int('3306')
 mysql.init_app(app)
 
-BackGround_Image = os.getenv("BG_IMG") 
+# BackGround_Image = os.getenv("BG_IMG") 
 Header = os.getenv("HEADER")
 
+with open("/clo835/config/image_url") as f:
+   text = f.read().replace("\n","")
 
+BackGround_Image = text
 
 AWS_REGION = "us-east-1"
 S3_BUCKET_NAME = "k8s-sohel-images"
