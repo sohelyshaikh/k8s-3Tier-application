@@ -45,7 +45,7 @@ jobs:
         docker ps
         echo "Pause for 20 seconds and let container start"
         sleep 20
-        curl localhost:81 -vvv
+        curl 0.0.0.0:81 -vvv
 
     
     
