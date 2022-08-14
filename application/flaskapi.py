@@ -34,6 +34,11 @@ s3_object = s3_resource.Object(S3_BUCKET_NAME, BackGround_Image)
 
 s3_object.download_file('static/image.jpg')
 
+
+@app.route("/")
+def test()
+    return render_template('unittesting.html')
+
 @app.route("/home")
 def index():
     """Function to test the functionality of the API"""
