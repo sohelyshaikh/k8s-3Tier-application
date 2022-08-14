@@ -34,10 +34,9 @@ s3_object = s3_resource.Object(S3_BUCKET_NAME, BackGround_Image)
 
 s3_object.download_file('static/image.jpg')
 
+object_url = "https://"+S3_BUCKET_NAME+".s3.amazonaws.com/"+BackGround_Image
+print("Object URL : " + object_url)
 
-@app.route("/")
-def test():
-    return render_template('unittesting.html')
 
 @app.route("/home")
 def index():
