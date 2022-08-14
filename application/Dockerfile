@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt --src /usr/local/src
 COPY . .
 
 EXPOSE 81
-CMD python flaskapi.py
+CMD [ "python", "flaskapi.py" ]

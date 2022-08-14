@@ -36,7 +36,7 @@ s3_object.download_file('static/image.jpg')
 
 
 @app.route("/")
-def test()
+def test():
     return render_template('unittesting.html')
 
 @app.route("/home")
