@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <head>
- <title>Users in database4</title>
+ <title>{{ header }}</title>
 </head>
 <body>
     <style>
-        table.center {
-        margin-left: auto; 
-        margin-right: auto;
-        }
+    table.center {
+      margin-left: auto; 
+      margin-right: auto;
+    }
     
         body {
-          background-image: url({{ bgi }});
+            background-image: url( {{ url_for('static', filename='image.jpg') }} );
+          /*background-image: url({{ bgi }});*/
           background-repeat: no-repeat;
           background-attachment: fixed;  
           background-size: cover;
         }
-
         td {
         width: 100px;
         text-align: center;
         border: 1px solid black;
         padding: 5px;
       }
-      
+      table, th, td {
+          border: 1px solid ;
+          border-collapse: collapse;
+          border-color: white;
+          border-width: 3px;
+        }
       h1{
           text-align: center;
           color: rgb(225, 238, 238);

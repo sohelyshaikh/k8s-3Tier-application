@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS sohelshaikh;
+    USE sohelshaikh;
+    CREATE TABLE users(user_id INT PRIMARY KEY AUTO_INCREMENT, user_name VARCHAR(255), user_email VARCHAR(255), user_password VARCHAR(255));
+    insert into users(user_name,user_email,user_password) values ('sohel','sohel@seneca.com','sohelpasswowrd'),
+                                                                 ('sarah','sarah@seneca.com','sarahpasswowrd'),
+                                                                 ('john','john@seneca.com','johnpasswowrd'),
+                                                                 ('jake','jake@seneca.com','jakepasswowrd'),
+                                                                 ('george','george@seneca.com','georgepasswowrd');

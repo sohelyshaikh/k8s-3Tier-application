@@ -1,6 +1,9 @@
 """Code for a flask API to Create, Read, Update, Delete users"""
 import os
-from flask import jsonify, request, Flask
+import io
+import boto3
+import json
+from flask import jsonify, request, Flask, render_template, redirect
 from flaskext.mysql import MySQL
 
 app = Flask(__name__)
@@ -8,19 +11,41 @@ app = Flask(__name__)
 mysql = MySQL()
 
 # MySQL configurations
-app.config["MYSQL_DATABASE_USER"] = "root"
-app.config["MYSQL_DATABASE_PASSWORD"] = os.getenv("db_root_password")
-app.config["MYSQL_DATABASE_DB"] = os.getenv("db_name")
-app.config["MYSQL_DATABASE_HOST"] = os.getenv("MYSQL_SERVICE_HOST")
-app.config["MYSQL_DATABASE_PORT"] = int(os.getenv("MYSQL_SERVICE_PORT"))
+app.config["MYSQL_DATABASE_USER"] = os.getenv("db_username")
+app.config["MYSQL_DATABASE_PASSWORD"] = os.getenv("db_root_password") 
+app.config["MYSQL_DATABASE_DB"] = os.getenv("db_name") 
+app.config["MYSQL_DATABASE_HOST"] = os.getenv("MYSQL_SERVICE_HOST") 
+app.config["MYSQL_DATABASE_PORT"] = int('3306')
 mysql.init_app(app)
 
-bgi = "https://k8s-demo-sohel-images.s3.amazonaws.com/alfred-kenneally-qp_q-CSC0AI-unsplash.jpg"
+# BackGround_Image = os.getenv("BG_IMG") 
+Header = os.getenv("HEADER")
+
+with open("/clo835/config/image_url") as f:
+   text = f.read().replace("\n","")
+
+BackGround_Image = text
+
+AWS_REGION = "us-east-1"
+S3_BUCKET_NAME = "k8s-sohel-images"
+s3_resource = boto3.resource("s3", region_name=AWS_REGION)
+
+s3_object = s3_resource.Object(S3_BUCKET_NAME, BackGround_Image)
+
+s3_object.download_file('static/image.jpg')
+
+object_url = "https://"+S3_BUCKET_NAME+".s3.amazonaws.com/"+BackGround_Image
+print("Object URL : " + object_url)
+
 
 @app.route("/")
+def test():
+    return render_template('unittesting.html')
+
+@app.route("/home")
 def index():
     """Function to test the functionality of the API"""
-    return render_template(welcome.html, bgi = bgi)
+    return render_template('welcome.html', header=Header)
 
 
 @app.route("/users", methods=["GET"])
@@ -33,9 +58,10 @@ def users():
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        return render_template('showuser.html',content=rows, bgi=BackGround_Image)
+        return render_template('showuser.html',content=rows, header=Header)
     except Exception as exception:
         return jsonify(str(exception))
+
 
 @app.route("/create", methods=["POST"])
 def add_user():
@@ -62,6 +88,8 @@ def add_user():
             return jsonify(str(exception))
     else:
         return jsonify("Please provide name, email and pwd")
+
+
 
 @app.route("/user/<int:user_id>", methods=["GET"])
 def user(user_id):
