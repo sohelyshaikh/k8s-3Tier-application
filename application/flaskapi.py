@@ -38,6 +38,10 @@ object_url = "https://"+S3_BUCKET_NAME+".s3.amazonaws.com/"+BackGround_Image
 print("Object URL : " + object_url)
 
 
+@app.route("/")
+def test():
+    return render_template('unittesting.html')
+
 @app.route("/home")
 def index():
     """Function to test the functionality of the API"""
