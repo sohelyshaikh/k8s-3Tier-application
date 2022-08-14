@@ -41,10 +41,10 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
         # Unit test
-        docker run -d -p 81:81 --name flaskapi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker run -d -p 81:81 --name flaskapi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG sleep 20
         docker ps
         echo "Pause for 20 seconds and let container start"
-        sleep 20
+        # sleep 20
         curl 0.0.0.0:81 -vvv
 
     
